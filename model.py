@@ -1,4 +1,4 @@
-"""Models and database functions for cars db."""
+"""Models and database functions for cars db.""" ### ??? I don't understand functions for cars ???###
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -10,21 +10,32 @@ db = SQLAlchemy()
 
 
 ##############################################################################
-# Part 1: Compose ORM
+#Part 1: Compose ORM
 
-# class Human(db.Model):
-#     """Human model."""
+class Human(db.Model):
+    """Human model."""
 
-#     __tablename__ = "humans"
+    __tablename__ = "humans"   #repr included ?
+    
+    human_id = db.Column(db.Integer,primary_key=True, nullable=False)# PK corresponds to public.humans table (psql)
+    fname = db.Column(db.String(25), nullable=False)                 #\d humans
+    lname = db.Column(db.String(25), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
 
+    animals = db.relationship('Animal')                       #relationship using FK and __repr__
 
-# class Animal(db.Model):
-#     """Animal model."""
+class Animal(db.Model):
+    """Animal model."""
 
-#     __tablename__ = "animals"
+    __tablename__ = "animals"   #repr included ?
+    animal_id = db.Column(db.Integer, primary_key=True, nullable=False)  #corresponds to public.animals (psql)
+    human_id = db.Column(db.Integer, db.ForeignKey('humans.human_id'), nullable=False)  #\d animals
+    name = db.Column(db.String(50), nullable=False)
+    animal_species = db.Column(db.String(25), nullable=True)
+    birth_year = db.Column(db.Integer, nullable=True)# do i need to add the max integer ?
 
-
-# End Part 1
+    humans = db.relationship('Human')
+#End Part 1
 
 
 ##############################################################################

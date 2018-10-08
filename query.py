@@ -18,30 +18,43 @@ init_app()
 # -----------------
 
 # Get the human with the id 2.
-q1 = None
+
+q1 = Human.query.filter(Human.human_id=='2').first()
+    ###look on human table + filter + humanId + human table + matches 2 id + fetch method###
+
 
 # Get the *first* animal with the species 'fish'
+q2 = Animal.query.filter(Animal.animal_species=='fish').all()
+    ###look on animal table + filter + animals from animal table + are fish + fetch method###
 
-q2 = None
 
 # Get all of the animals for the human with the id 5 and the animal species 'dog'
-q3 = None
+q3 = Animal.query.filter(Human.human_id == '5' && Animal.animal_species == 'dog').all()
+    ###look at animal table + filter + humans on human table + id of 5 + species dog + fetching method###
+
 
 # Get all the animals that were born after 2015 (do not include animals without birth years).
-q4 = None
+q4 = Animal.query.filter((Animal.birth_year > 2015) & (Animal.birth_year != None)).all()
+    ###animal table + filter + birth after 2015 + and + birth_year included only + fetching method###
+
 
 # Find the humans with first names that start with 'J'
-q5 = None
+q5 =Human.query.filter(Human.fname == 'J').all()
+   ###check human table + filter + first name value of J + fetching method###
+
 
 # Find all the animals without birth years in the database.
-q6 = None
+q6 = Animal.query.filter(Animal.birth_year.is_(None)).all()
+   ###look on animal table + filter + birth year empty + fetching method###
+
 
 # Find all animals that are either fish or rabbits
-q7 = None
-
+q7 = Animal.query.filter((Animal.animal_species == 'fish') OR (Animal.animal_species == 'rabbit')).all()
+    ###look at animal table + filter + animals on animal table ARE species/fish OR on animal table ARE species/rabbits + fetching method### 
+ 
 # Find all the humans whose email addresses do not contain 'gmail'
-q8 = None
-
+q8 = Human.query.filter( ~ Human.email.in_('gmail')).all()
+   ###check human table + filter out + on human table missing gmail + fetching method###
 # ---------------------
 # PART THREE: FUNCTIONS
 # ---------------------
